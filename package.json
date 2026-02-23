@@ -10,7 +10,7 @@
     "lint": "eslint",
     "format": "prettier --write .",
     "predeploy": "npm run build",
-    "deploy": "next build && next export && gh-pages -d out"
+    "deploy": "next build && gh-pages -d out"
   },
   "dependencies": {
     "@ant-design/icons": "^6.1.0",
