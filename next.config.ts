@@ -1,14 +1,8 @@
 import type { NextConfig } from 'next';
 
-const isProd = process.env.NODE_ENV === 'production';
-
 const nextConfig: NextConfig = {
-  trailingSlash: true, // чтобы ссылки были корректны
-  basePath: isProd ? '/shovel' : '', // обязательно для GH Pages
-  assetPrefix: isProd ? '/shovel/' : '',
-  images: {
-    unoptimized: true, // чтобы next/image не ломался
-  },
+  output: undefined, // обычный SSR
+  images: { unoptimized: true },
 };
 
 export default nextConfig;

@@ -2,15 +2,12 @@
   "name": "business-card-for-sales",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://sky0men.github.io/shovel",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3000",
     "lint": "eslint",
-    "format": "prettier --write .",
-    "predeploy": "npm run build",
-    "deploy": "next build && gh-pages -d out"
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@ant-design/icons": "^6.1.0",
