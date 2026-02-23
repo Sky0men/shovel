@@ -1,12 +1,11 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  output: 'export',
-  trailingSlash: true,
-  basePath: '/shovel',
-  assetPrefix: '/shovel/',
+  output: 'export', // static export
+  trailingSlash: true, // чтобы ссылки были корректны
+  basePath: '/shovel', // обязательно для GH Pages
   images: {
-    unoptimized: true,
+    unoptimized: true, // чтобы next/image не ломался
   },
 };
 
