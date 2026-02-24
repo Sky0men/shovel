@@ -7,16 +7,16 @@ export async function POST(req: Request) {
 
     const transporter = nodemailer.createTransport({
       host: 'smtp.mail.ru',
-      port: 587,
-      secure: false, // обязательно true для 465
+      port: 465,
+      secure: true, // обязательно true для 465
       auth: {
-        user: 'vanya.zelenczov@mail.ru',
-        pass: 'CKFzBQ31aRBh8UMm67Aa',
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
       },
     });
 
     await transporter.sendMail({
-      from: 'Заявка с сайта',
+      from: `"Заявка с сайта" <${process.env.SMTP_USER}>`,
       to: 'vanya.zelenczov@mail.ru', // сюда можно поставить любую рабочую почту
       subject: 'Новая заявка с сайта',
       html: `
