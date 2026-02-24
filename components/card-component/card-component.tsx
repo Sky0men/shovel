@@ -90,7 +90,7 @@ const CardComponent = ({ imageSrc, title, description, price }: CardComponentPro
         <Form
           layout="vertical"
           onFinish={async (values) => {
-            const res = await fetch('http://31.58.171.108:4000/api/send-email', {
+            const res = await fetch('http://31.58.171.108/api/send-email', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(values),
