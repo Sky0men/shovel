@@ -1,23 +1,26 @@
+// api/send-email.ts
 import nodemailer from 'nodemailer';
 import { NextResponse } from 'next/server';
+
+const transporter = nodemailer.createTransport({
+  host: 'smtp.mail.ru',
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+  connectionTimeout: 10000,
+});
 
 export async function POST(req: Request) {
   try {
     const data = await req.json();
 
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.mail.ru',
-      port: 465,
-      secure: true, // обязательно true для 465
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
-
+    // reuse transporter
     await transporter.sendMail({
       from: `"Заявка с сайта" <${process.env.SMTP_USER}>`,
-      to: 'vanya.zelenczov@mail.ru', // сюда можно поставить любую рабочую почту
+      to: 'vanya.zelenczov@mail.ru',
       subject: 'Новая заявка с сайта',
       html: `
         <h2>Новая заявка</h2>

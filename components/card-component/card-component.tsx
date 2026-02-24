@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Text from 'antd/es/typography/Text';
 import { Styled } from './styled';
 import { useState } from 'react';
-import form from 'antd/es/form';
 
 type CardComponentProps = {
   imageSrc: string;
@@ -43,18 +42,21 @@ const SELECTBOX_VALUES = [
 
 const CardComponent = ({ imageSrc, title, description, price }: CardComponentProps) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [loading, setLoading] = useState(false); // <- состояние загрузки
+
   const handleClick = () => {
     setIsOpenModal(true);
   };
 
   const handleCloseModal = () => {
     setIsOpenModal(false);
+    setLoading(false); // сбрасываем лоадер при закрытии
   };
+
   return (
     <>
       <Card>
         <Flex vertical gap={18}>
-          {/* Секция с текстом сверху */}
           <Flex justify="center" align="center">
             <Image
               src={imageSrc}
@@ -68,10 +70,6 @@ const CardComponent = ({ imageSrc, title, description, price }: CardComponentPro
             <Title level={5}>{title}</Title>
             <Text>{description}</Text>
           </Flex>
-
-          {/* Изображение */}
-
-          {/* Цена и кнопка */}
           <Flex justify="space-between" align="center">
             <Styled.WrapperParagraph strong>{`${price} ₽`}</Styled.WrapperParagraph>
             <Button size="large" type="primary" onClick={handleClick}>
@@ -90,17 +88,25 @@ const CardComponent = ({ imageSrc, title, description, price }: CardComponentPro
         <Form
           layout="vertical"
           onFinish={async (values) => {
-            const res = await fetch('/api/send-email', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(values),
-            });
+            setLoading(true); // включаем лоадер
+            try {
+              const res = await fetch('/api/send-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(values),
+              });
 
-            if (res.ok) {
-              alert('Заявка отправлена!');
-              handleCloseModal();
-            } else {
+              if (res.ok) {
+                alert('Заявка отправлена!');
+                handleCloseModal();
+              } else {
+                alert('Ошибка отправки');
+                setLoading(false); // выключаем лоадер
+              }
+            } catch (err) {
+              console.error(err);
               alert('Ошибка отправки');
+              setLoading(false); // выключаем лоадер
             }
           }}
         >
@@ -160,7 +166,7 @@ const CardComponent = ({ imageSrc, title, description, price }: CardComponentPro
             <Input />
           </Form.Item>
 
-          <Button type="primary" htmlType="submit" block>
+          <Button type="primary" htmlType="submit" block loading={loading}>
             Оставить заявку
           </Button>
         </Form>
