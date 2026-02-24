@@ -10,8 +10,8 @@ export async function POST(req: Request) {
       port: 587,
       secure: false, // обязательно true для 465
       auth: {
-        user: 'vanya.zelenczov@mail.ru',
-        pass: 'CKFzBQ31aRBh8UMm67Aa',
+        user: '',
+        pass: '',
       },
     });
 
