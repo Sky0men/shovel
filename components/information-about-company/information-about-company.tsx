@@ -4,10 +4,11 @@ import { InformationComponent } from '../information-component/information-compo
 const INFORMATION = [
   {
     label: 'Телефон',
-    hrefLink: 'tel:+79991234567',
-    text: '+7 (999) 123-45-67',
+    hrefLink: 'tel:+79201435362',
+    text: '+7 (920) 143-53-62',
     hasLink: true,
     hasText: false,
+    icon: '/phone.svg',
   },
   {
     label: 'Email',
@@ -15,18 +16,21 @@ const INFORMATION = [
     text: 'info@example.com',
     hasLink: true,
     hasText: false,
+    icon: '/mail.svg',
   },
   {
     label: 'Адрес',
-    text: 'г. Москва, ул. Промышленная, 15',
+    text: 'Россия, Ярославская область, г. Рыбинск',
     hasLink: false,
     hasText: true,
+    icon: '/location.svg',
   },
   {
     label: 'Режим работы',
-    text: 'Пн-Пт: 9:00 - 18:00',
+    text: 'Ежедневно: 9:00 - 19:00',
     hasLink: false,
     hasText: true,
+    icon: '/acute.svg',
   },
 ];
 
@@ -46,6 +50,8 @@ const InformationAboutCompany = () => {
               text={informationCard.text}
               hasLink={informationCard.hasLink}
               hasText={informationCard.hasText}
+              hrefLink={informationCard.hrefLink}
+              icon={informationCard.icon}
             />
           </Col>
         ))}

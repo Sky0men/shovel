@@ -1,6 +1,5 @@
 import { HeadingContent } from '@/components/heading-content/heading-content';
 import { Layout } from 'antd';
-import { Content } from 'antd/es/layout/layout';
 import { Styled } from './styled';
 import { DescriptionCompany } from '@/components/description-company/description-company';
 import { OurProducts } from '@/components/our-products/our-products';
@@ -13,10 +12,10 @@ export default function Home() {
         <HeadingContent />
       </Styled.LayoutHeader>
       <Layout>
-        <Content style={{ padding: '50px 50px' }}>
+        <Styled.LayoutContent>
           <DescriptionCompany />
           <OurProducts />
-        </Content>
+        </Styled.LayoutContent>
       </Layout>
       <Layout>
         <Styled.LayoutFooter>

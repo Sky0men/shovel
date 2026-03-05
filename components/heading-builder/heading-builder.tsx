@@ -5,9 +5,9 @@ const HeadingBuilder = () => {
   return (
     <Flex wrap="nowrap" vertical gap={20}>
       <Flex vertical wrap="nowrap">
-        <Styled.Heading level={2}>МЕТПРОМСНАБ</Styled.Heading>
+        <Styled.Heading level={3}>ТИТАНИНСТРУМЕНТ</Styled.Heading>
         <Styled.ColorText>
-          Надежный поставщик металлопродукции для промышленности и строительства. Работаем с 2005
+          Надежный поставщик садового инструмента из титана и нержавеющей стали. Работаем с 2005
           года. Гарантия качества и своевременной доставки.
         </Styled.ColorText>
       </Flex>

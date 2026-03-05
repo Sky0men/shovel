@@ -1,48 +1,75 @@
 'use client';
-import { Button, Card, Flex, Form, Input, Modal, Select } from 'antd';
+import { Button, Card, Flex, Form, Input, Modal, Select, Image as Img, notification } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
 import Title from 'antd/es/typography/Title';
 import Image from 'next/image';
 import Text from 'antd/es/typography/Text';
 import { Styled } from './styled';
 import { useState } from 'react';
+import TextArea from 'antd/es/input/TextArea';
 
 type CardComponentProps = {
   imageSrc: string;
   title: string;
-  description: string;
+  material: string;
+  size: string;
   price: string;
 };
 
 const SELECTBOX_VALUES = [
   {
-    label: 'Лопата сварочная',
-    value: 'Лопата сварочная',
+    label: 'Лопата штыковая сварная большая 1,5 мм',
+    value: 'Лопата штыковая сварная большая 1,5 мм',
   },
   {
-    label: 'Лопата траншевая',
-    value: 'Лопата траншевая',
+    label: 'Лопата штыковая сварная большая 2 мм',
+    value: 'Лопата штыковая сварная большая 2 мм',
   },
   {
-    label: 'Лопата газонная',
-    value: 'Лопата газонная',
+    label: 'Лопата штыковая сварная большая 2,5 мм (по запросу)',
+    value: 'Лопата штыковая сварная большая 2,5 мм (по запросу)',
   },
   {
-    label: 'Лопата цветочная',
-    value: 'Лопата цветочная',
+    label: 'Лопата штыковая сварная средняя 2 мм (по запросу)',
+    value: 'Лопата штыковая сварная средняя 2 мм (по запросу)',
   },
   {
-    label: 'Лопата №5',
-    value: 'Лопата №5',
+    label: 'Лопата штыковая штыковая сварная средняя 1,5 мм',
+    value: 'Лопата штыковая штыковая сварная средняя 1,5 мм',
   },
   {
-    label: 'Лопата №6',
-    value: 'Лопата №6',
+    label: 'Лопата штыковая сварная средняя 1,2 мм (по запросу)',
+    value: 'Лопата штыковая сварная средняя 1,2 мм (по запросу)',
+  },
+  {
+    label: 'Лопата штыковая сварная малая 1,5 мм',
+    value: 'Лопата штыковая сварная малая 1,5 мм',
+  },
+  {
+    label: 'Лопата штыковая сварная малая 1,2 мм (по запросу)',
+    value: 'Лопата штыковая сварная малая 1,2 мм (по запросу)',
+  },
+  {
+    label: 'Лопата штыковая штампованная 2 мм',
+    value: 'Лопата штыковая штампованная 2 мм',
+  },
+  {
+    label: 'Лопата штыковая штампованная 1,5 мм',
+    value: 'Лопата штыковая штампованная 1,5 мм',
+  },
+  {
+    label: 'Лопата траншейная  сварная 2 мм',
+    value: 'Лопата траншейная  сварная 2 мм',
+  },
+  {
+    label: 'Лопата траншейная  сварная 2,5 мм (по запросу)',
+    value: 'Лопата траншейная  сварная 2,5 мм (по запросу)',
   },
 ];
 
-const CardComponent = ({ imageSrc, title, description, price }: CardComponentProps) => {
+const CardComponent = ({ imageSrc, title, material, size, price }: CardComponentProps) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [loading, setLoading] = useState(false); // <- состояние загрузки
+  const [loading, setLoading] = useState(false);
 
   const handleClick = () => {
     setIsOpenModal(true);
@@ -53,26 +80,66 @@ const CardComponent = ({ imageSrc, title, description, price }: CardComponentPro
     setLoading(false); // сбрасываем лоадер при закрытии
   };
 
+  const formatPhone = (value: string = '') => {
+    const digits = value.replace(/\D/g, '');
+
+    if (!digits) return '';
+
+    const d = digits.startsWith('8') ? '7' + digits.slice(1) : digits;
+
+    const trimmed = d.slice(0, 11);
+
+    let result = '+7';
+
+    if (trimmed.length > 1) {
+      result += ` (${trimmed.slice(1, 4)}`;
+    }
+    if (trimmed.length >= 4) {
+      result += `) ${trimmed.slice(4, 7)}`;
+    }
+    if (trimmed.length >= 7) {
+      result += `-${trimmed.slice(7, 9)}`;
+    }
+    if (trimmed.length >= 9) {
+      result += `-${trimmed.slice(9, 11)}`;
+    }
+
+    return result;
+  };
+
+  const [form] = Form.useForm();
+
   return (
     <>
       <Card>
         <Flex vertical gap={18}>
           <Flex justify="center" align="center">
-            <Image
-              src={imageSrc}
-              alt={title}
-              width={324}
-              height={324}
-              style={{ width: '100%', height: '324px', objectFit: 'cover' }}
-            />
+            <Styled.ImageWrapper>
+              <Img
+                src={imageSrc}
+                alt={title}
+                preview={false}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                }}
+              />
+            </Styled.ImageWrapper>
           </Flex>
           <Flex vertical gap={12} align="start">
-            <Title level={5}>{title}</Title>
-            <Text>{description}</Text>
+            <Title level={4}>{title}</Title>
+            <Text>{material}</Text>
+            <Text>{size}</Text>
           </Flex>
           <Flex justify="space-between" align="center">
             <Styled.WrapperParagraph strong>{`${price} ₽`}</Styled.WrapperParagraph>
-            <Button size="large" type="primary" onClick={handleClick}>
+            <Button
+              icon={<Image src="/shopping-basket.svg" alt="basket" width={22} height={22} />}
+              size="large"
+              type="primary"
+              onClick={handleClick}
+            >
               Заказать
             </Button>
           </Flex>
@@ -86,6 +153,7 @@ const CardComponent = ({ imageSrc, title, description, price }: CardComponentPro
         footer={null}
       >
         <Form
+          form={form}
           layout="vertical"
           onFinish={async (values) => {
             setLoading(true); // включаем лоадер
@@ -97,17 +165,55 @@ const CardComponent = ({ imageSrc, title, description, price }: CardComponentPro
               });
 
               if (res.ok) {
-                alert('Заявка отправлена!');
+                form.resetFields();
+                notification.success({
+                  message: <span style={{ color: '#fff' }}>Заявка отправлена</span>,
+                  description: (
+                    <span style={{ color: '#fff' }}>
+                      Спасибо! Мы свяжемся с вами в ближайшее время.
+                    </span>
+                  ),
+                  placement: 'topRight',
+                  duration: 10,
+                  style: { background: '#57f271' },
+                  closeIcon: <CloseOutlined style={{ color: '#fff' }} />,
+                  className: 'custom-notification',
+                });
                 handleCloseModal();
               } else {
-                alert('Ошибка отправки');
+                notification.error({
+                  message: <span color="#fff">Ошибка отправки</span>,
+                  description: <span color="#fff">Попробуйте ещё раз позже.</span>,
+                  placement: 'topRight',
+                  duration: 10,
+                  style: { background: '#fc8181' },
+                  closeIcon: <CloseOutlined style={{ color: '#fff' }} />,
+                  className: 'custom-notification',
+                });
                 setLoading(false); // выключаем лоадер
               }
             } catch (err) {
               console.error(err);
-              alert('Ошибка отправки');
+              notification.error({
+                message: <span color="#fff">Ошибка отправки</span>,
+                description: <span color="#fff">Попробуйте ещё раз позже.</span>,
+                placement: 'topRight',
+                duration: 10,
+                style: { background: '#fc8181' },
+                closeIcon: <CloseOutlined style={{ color: '#fff' }} />,
+              });
               setLoading(false); // выключаем лоадер
             }
+          }}
+          onFinishFailed={() => {
+            // Показываем короткое уведомление
+            notification.error({
+              message: <span style={{ color: '#fff' }}>Не все обязательные поля заполнены</span>,
+              placement: 'topRight',
+              duration: 10,
+              style: { background: '#fc8181' },
+              closeIcon: <CloseOutlined style={{ color: '#fff' }} />,
+            });
           }}
         >
           <Form.Item
@@ -115,7 +221,7 @@ const CardComponent = ({ imageSrc, title, description, price }: CardComponentPro
             label="Фамилия"
             rules={[{ required: true, message: 'Введите фамилию' }]}
           >
-            <Input />
+            <Input placeholder="Иванов" />
           </Form.Item>
 
           <Form.Item
@@ -123,19 +229,37 @@ const CardComponent = ({ imageSrc, title, description, price }: CardComponentPro
             label="Имя"
             rules={[{ required: true, message: 'Введите имя' }]}
           >
-            <Input />
+            <Input placeholder="Иван" />
           </Form.Item>
 
           <Form.Item
             name="company"
-            label="Название компании"
-            rules={[{ required: true, message: 'Введите название компании' }]}
+            label="Название компании, при покупке через ЮР. лицо"
+            rules={[{ message: 'Введите название компании' }]}
           >
-            <Input />
+            <Input placeholder="ТИТАНИНСТРУМЕНТ" />
           </Form.Item>
 
-          <Form.Item name="inn" label="ИНН" rules={[{ required: true, message: 'Введите ИНН' }]}>
-            <Input />
+          <Form.Item
+            name="inn"
+            label="ИНН"
+            normalize={(value) => value?.replace(/\D/g, '').slice(0, 12)}
+            rules={[
+              { required: true, message: 'Введите ИНН' },
+              {
+                validator: (_, value) => {
+                  if (!value) return Promise.resolve();
+
+                  if (value.length === 10 || value.length === 12) {
+                    return Promise.resolve();
+                  }
+
+                  return Promise.reject(new Error('ИНН должен содержать 10 или 12 цифр'));
+                },
+              },
+            ]}
+          >
+            <Input maxLength={12} inputMode="numeric" placeholder="0123456789" />
           </Form.Item>
 
           <Form.Item
@@ -150,9 +274,20 @@ const CardComponent = ({ imageSrc, title, description, price }: CardComponentPro
           <Form.Item
             name="phone"
             label="Мобильный телефон"
-            rules={[{ required: true, message: 'Введите телефон' }]}
+            normalize={(value) => formatPhone(value)}
+            rules={[
+              { required: true, message: 'Введите телефон' },
+              {
+                validator: (_, value) => {
+                  if (!value || value.replace(/\D/g, '').length === 11) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(new Error('Введите телефон полностью'));
+                },
+              },
+            ]}
           >
-            <Input />
+            <Input placeholder="+7 (___) ___-__-__" />
           </Form.Item>
 
           <Form.Item
@@ -163,7 +298,15 @@ const CardComponent = ({ imageSrc, title, description, price }: CardComponentPro
               { type: 'email', message: 'Некорректный email' },
             ]}
           >
-            <Input />
+            <Input placeholder="titaninstrument@mail.ru" />
+          </Form.Item>
+
+          <Form.Item
+            name="comment"
+            label="Комментарий"
+            rules={[{ max: 500, message: 'Максимум 500 символов' }]}
+          >
+            <TextArea rows={4} showCount maxLength={500} />
           </Form.Item>
 
           <Button type="primary" htmlType="submit" block loading={loading}>
