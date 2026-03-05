@@ -12,8 +12,8 @@ const INFORMATION = [
   },
   {
     label: 'Email',
-    hrefLink: 'mailto:info@example.com',
-    text: 'info@example.com',
+    hrefLink: 'mailto:titaninstrument.rybinsk@mail.ru',
+    text: 'titaninstrument.rybinsk@mail.ru',
     hasLink: true,
     hasText: false,
     icon: '/mail.svg',

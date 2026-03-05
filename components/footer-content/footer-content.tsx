@@ -19,7 +19,7 @@ const FooterContent = () => {
         <Space orientation="vertical" size={8} style={{ width: '100%' }}>
           <Styled.Heading>Контакты</Styled.Heading>
           <Styled.ColorText>Телефон: +7 (920) 143-53-62</Styled.ColorText>
-          <Styled.ColorText>Email: info@metalpro.com</Styled.ColorText>
+          <Styled.ColorText>Email: titaninstrument.rybinsk@mail.ru</Styled.ColorText>
           <Styled.ColorText>Адрес: Россия, Ярославская область, г. Рыбинск</Styled.ColorText>
         </Space>
       </Col>
