@@ -4,6 +4,7 @@ import { Styled } from './styled';
 import { DescriptionCompany } from '@/components/description-company/description-company';
 import { OurProducts } from '@/components/our-products/our-products';
 import { FooterContent } from '@/components/footer-content/footer-content';
+import { OtherProducts } from '@/components/other-products/other-products';
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
         <Styled.LayoutContent>
           <DescriptionCompany />
           <OurProducts />
+          <OtherProducts />
         </Styled.LayoutContent>
       </Layout>
       <Layout>
