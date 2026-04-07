@@ -65,6 +65,30 @@ const SELECTBOX_VALUES = [
     label: 'Лопата траншейная  сварная 2,5 мм (по запросу)',
     value: 'Лопата траншейная  сварная 2,5 мм (по запросу)',
   },
+  {
+    label: 'Лопата совковая штампованная 1,5 мм без бортов',
+    value: 'Лопата совковая штампованная 1,5 мм без бортов',
+  },
+  {
+    label: 'Тяпка полукруглая 2,5 мм (2,0 мм по запросу)',
+    value: 'Тяпка полукруглая 2,5 мм (2,0 мм по запросу)',
+  },
+  {
+    label: 'Тяпка трапецевидная 200, 2,5 мм (2,0 мм по запросу)',
+    value: 'Тяпка трапецевидная 200, 2,5 мм (2,0 мм по запросу)',
+  },
+  {
+    label: 'Тяпка трапецевидная 170, 2,5 мм (2,0 мм по запросу)',
+    value: 'Тяпка трапецевидная 170, 2,5 мм (2,0 мм по запросу)',
+  },
+  {
+    label: 'Тяпка "Секира" 2,5 мм',
+    value: 'Тяпка "Секира" 2,5 мм',
+  },
+  {
+    label: 'Тяпка треугольная 2,5 мм (2,0 мм по запросу)',
+    value: 'Тяпка треугольная 2,5 мм (2,0 мм по запросу)',
+  },
 ];
 
 const CardComponent = ({ imageSrc, title, material, size, price }: CardComponentProps) => {
@@ -128,7 +152,9 @@ const CardComponent = ({ imageSrc, title, material, size, price }: CardComponent
             </Styled.ImageWrapper>
           </Flex>
           <Flex vertical gap={12} align="start">
-            <Title level={4}>{title}</Title>
+            <Title level={4} style={{ minHeight: 84 }}>
+              {title}
+            </Title>
             <Text>{material}</Text>
             <Text>{size}</Text>
           </Flex>
