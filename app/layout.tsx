@@ -23,6 +23,10 @@ export const metadata: Metadata = {
     locale: 'ru_RU',
     type: 'website',
   },
+  verification: {
+    google: 'DnVMONGwpuTzdl4htebLn3AZ9GKUv2ZsoiAmxcyn2Jo',
+    yandex: '3583c7adeaa7f95c',
+  },
 };
 
 export default function RootLayout({
@@ -31,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ru">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
     </html>
   );

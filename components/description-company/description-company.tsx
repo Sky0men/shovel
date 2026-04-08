@@ -47,50 +47,67 @@ const DescriptionCompany = () => {
       ),
     },
   ];
+
   return (
     <Card>
       <Styled.Heading level={3}>О компании</Styled.Heading>
 
-      <Row gutter={[32, 24]}>
+      <Row gutter={[32, 24]} align="top">
         <Col xs={24} sm={24} lg={12}>
-          <Text>
-            <Text strong>ТИТАНИНСТРУМЕНТ</Text>— является производителем профессионального садового
-            инвентаря из титана и нержавеющей стали. Мы меняем представление о работе на земле,
-            превращая ее в легкое и приятное занятие.
-          </Text>
+          <Flex vertical gap={24}>
+            <Text>
+              <Text strong>ТИТАНИНСТРУМЕНТ</Text> — является производителем профессионального
+              садового инвентаря из титана и нержавеющей стали. Мы меняем представление о работе на
+              земле, превращая ее в легкое и приятное занятие.
+            </Text>
 
-          <Image src="/brand-logo.png" alt="титанинструмент" width={246} height={246} />
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Image
+                src="/brand-logo.png"
+                alt="титанинструмент"
+                width={246}
+                height={246}
+                style={{ display: 'block', maxWidth: '100%', height: 'auto' }}
+              />
+            </div>
+          </Flex>
         </Col>
 
         <Col xs={24} sm={24} lg={12}>
-          <Styled.Heading level={5}>
-            Мы производим только надёжный инвентарь. Наш ассортимент:
-          </Styled.Heading>
-          <Flex gap={2} align="start">
-            <Image src="/check.svg" alt="галочка" width={22} height={22} />
+          <Flex vertical gap={12}>
+            <Styled.Heading level={5}>
+              Мы производим только надёжный инвентарь. Наш ассортимент:
+            </Styled.Heading>
+
+            <Flex gap={8} align="start">
+              <Image src="/check.svg" alt="галочка" width={22} height={22} />
+              <Text>
+                Различные виды лопат: универсальные сварные и штампованные, совковые, траншейные —
+                для любых задач на вашем участке.
+              </Text>
+            </Flex>
+
+            <Flex gap={8} align="start">
+              <Image src="/check.svg" alt="галочка" width={22} height={22} />
+              <Text>
+                Тяпки (плоскорезы) — невероятно легкие, но прочные, для быстрой и чистой прополки.
+              </Text>
+            </Flex>
+
+            <Flex gap={8} align="start">
+              <Image src="/check.svg" alt="галочка" width={22} height={22} />
+              <Text>
+                Совки из нержавеющей стали и титана — для точных работ на клумбах и в теплицах.
+              </Text>
+            </Flex>
+
             <Text>
-              Различные виды лопат: универсальные сварные и штампованные, совковые, траншейные — для
-              любых задач на вашем участке.
+              Наша гордость — <Text strong>титановые лопаты</Text>. Почувствуйте разницу с первого
+              взгляда:
             </Text>
+
+            <Styled.CleanCollapse items={collapseItems} ghost accordion />
           </Flex>
-          <Flex gap={2} align="start">
-            <Image src="/check.svg" alt="галочка" width={22} height={22} />
-            <Text>
-              Тяпки (плоскорезы) — невероятно легкие, но прочные, для быстрой и чистой прополки.
-            </Text>
-          </Flex>
-          <Flex gap={2} align="start">
-            <Image src="/check.svg" alt="галочка" width={22} height={22} />
-            <Text>
-              Совки из нержавеющей стали и титана — для точных работ на клумбах и в теплицах.
-            </Text>
-          </Flex>
-          <br />
-          <Text>
-            Наша гордость — <Text strong>титановые лопаты</Text>. Почувствуйте разницу с первого
-            взгляда:
-          </Text>
-          <Styled.CleanCollapse items={collapseItems} ghost accordion />
         </Col>
       </Row>
     </Card>

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 const Heading = styled(Title)`
   && {
     font-weight: bold;
+    margin: 0;
   }
 `;
 
